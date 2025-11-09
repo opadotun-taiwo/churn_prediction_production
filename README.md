@@ -1,4 +1,3 @@
-# churn_prediction_production
 
 # FinPay Customer Churn Prediction
 
