@@ -1,12 +1,12 @@
 
-# FinPay Customer Churn Prediction
+## FinPay Customer Churn Prediction
 ![Churn Prediction Architecture](https://cdn.sanity.io/images/pghoxh0e/production/9dd57f643d87242fb736f32fe109cb2c327b1205-960x540.png?rect=0,18,960,504&w=1200&h=630)
 
 ## Description
 
 This project aims to predict customer churn for the FinPay fintech app. Currently, sending notifications and discount offers to churn-prone customers is done manually by downloading records from dashboard.
 
-# The goal of this project is to automate customer churn detection by building a machine learning model that classifies customers as “churn” or “not churn.” The model is deployed as an API on AWS Elastic Beanstalk, enabling internal developers and systems to automatically identify at-risk customers and trigger targeted 10% bill payment discount push notifications to reduce churn.
+## The goal of this project is to automate customer churn detection by building a machine learning model that classifies customers as “churn” or “not churn.” The model is deployed as an API on AWS Elastic Beanstalk, enabling internal developers and systems to automatically identify at-risk customers and trigger targeted 10% bill payment discount push notifications to reduce churn.
 
 ## What this project does
 
