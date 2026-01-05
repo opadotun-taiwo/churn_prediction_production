@@ -1,26 +1,40 @@
 
 # FinPay Customer Churn Prediction
+![Churn Prediction Architecture](https://cdn.sanity.io/images/pghoxh0e/production/9dd57f643d87242fb736f32fe109cb2c327b1205-960x540.png?rect=0,18,960,504&w=1200&h=630)
 
 ## Description
 
-This project aims to predict customer churn for the FinPay fintech app. Currently, sending notifications and discount offers to churn-prone customers is done manually. The goal of this project is to automate this process by building a machine learning model that classifies customers as **churn** or **not churn**, allowing marketing to automatically send targeted 10% discount push notifications to at-risk customers.
+This project aims to predict customer churn for the FinPay fintech app. Currently, sending notifications and discount offers to churn-prone customers is done manually by downloading records from dashboard.
 
-The model uses the following features:
+# The goal of this project is to automate customer churn detection by building a machine learning model that classifies customers as “churn” or “not churn.” The model is deployed as an API on AWS Elastic Beanstalk, enabling internal developers and systems to automatically identify at-risk customers and trigger targeted 10% bill payment discount push notifications to reduce churn.
 
-- `wallet_id`, `onboard_date`, `user_class`, `state`, `region`
-- `last_trans_date`, `first_trans_date`, `days_since_last_txn`, `days_to_first_txn`, `tenure_days`
-- `total_txn_count`, `total_tpv`, `avg_tpv`, `txn_count_30d`, `tpv_30d`, `avg_txn_value_30d`
-- `txn_count_90d`, `tpv_90d`, `avg_txn_value_90d`, `txn_trend`, `tpv_trend`, `avg_days_between_txn`
-- `pos_share`, `transfer_share`, `digital_service_share`, `loan_share`, `deposit_share`
-- `total_commission`, `success_rate`, `churn_flag`
+## What this project does
 
-The model uses **Logistic Regression** to classify customers, and the project is designed to be used in an automated pipeline for real-time churn prediction.
+This project demonstrates how machine learning can be used to predict customer churn in real time and integrate those predictions directly into business workflows.
 
----
+A Logistic Regression model is trained to analyze customer behavior and determine whether a customer is likely to churn. Once trained, the model is exposed as a REST API, allowing other services (such as marketing or notification systems) to request churn predictions instantly.
 
-## Libraries Used
+# This makes it possible to automatically:
 
-```python
+Detect customers at risk of leaving
+
+Send timely, personalized incentives (e.g. a 10% discount)
+
+Reduce churn without manual intervention
+
+# Model Details
+
+Algorithm: Logistic Regression
+
+Use case: Binary classification (Churn vs Not Churn)
+
+Deployment: AWS Elastic Beanstalk
+
+Prediction mode: Real-time via API
+
+The model is designed to fit seamlessly into an automated production pipeline, rather than being a one-off analysis.
+
+# Libraries Used
 import pandas as pd
 import numpy as np
 import pickle
@@ -28,65 +42,63 @@ from sklearn.model_selection import train_test_split, KFold
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
-Project Structure
-train.py — script to train the churn prediction model
 
-predict.py — script to make predictions on new customer data
+# Project Structure
 
-serve.py — script to serve the model as an API
+train.py — Trains the churn prediction model
 
-Pipfile & Pipfile.lock — pipenv environment files
+predict.py — Generates churn predictions for new customer data
 
-Dockerfile — used to build the Docker image finpay_churn_serving:latest
+serve.py — Serves the trained model as an API
 
-Getting Started
-1. Clone the repository
-bash
-Copy code
+Pipfile / Pipfile.lock — Python dependency management
+
+Dockerfile — Builds the Docker image (finpay_churn_serving:latest)
+
+# Getting Started
+1️ Clone the repository
 git clone <your-repo-url>
 cd <your-repo-folder>
-2. Activate the Python environment
-bash
-Copy code
+
+2️ Set up the environment
 pipenv install
 pipenv shell
-3. Train the model
-bash
-Copy code
+
+3️ Train the model
 python train.py
-This will train the logistic regression model and save it as a pickle file for later use.
 
-4. Make predictions
-bash
-Copy code
+
+This trains the Logistic Regression model and saves it as a pickle file for reuse.
+
+4️ Make predictions on new data
 python predict.py --input data/new_customers.csv --output data/predictions.csv
-5. Serve the model as an API
-bash
-Copy code
+
+5️ Serve the model as an API
 python serve.py
-The API can then receive customer data and return churn predictions in real-time.
 
-Docker Usage
-To build the Docker image:
 
-bash
-Copy code
+The API will accept customer data and return churn predictions in real time.
+
+ Docker Usage
+Build the image
 docker build -t finpay_churn_serving:latest .
-To run the Docker container:
 
-bash
-Copy code
+Run the container
 docker run -p 8000:8000 finpay_churn_serving:latest
-The model will be served at http://localhost:8000.
 
-Goal
-By deploying this service, the FinPay data and engineering teams can automate customer churn detection and marketing campaigns, ensuring timely push notifications with 10% discount offers to reduce churn.
 
-yaml
-Copy code
+The service will be available at:
 
----
+http://localhost:8000
 
-If you want, I can also make a **slimmer, more marketing-friendly version** that you could attach to your GitHub repo or project documentation. It’ll be easier for stakeholders to read.  
+# Business Impact
 
-Do you want me to do that?
+By deploying this service, FinPay’s data and engineering teams can:
+
+Automate churn detection
+
+Reduce customer drop-off through timely incentives
+
+Power marketing campaigns with real-time ML predictions
+
+Eliminate manual churn analysis
